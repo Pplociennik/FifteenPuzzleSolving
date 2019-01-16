@@ -18,13 +18,20 @@ public class Node {
         this.setSuccessorBoard();
         if (parent == null) {}
         else{
-        h = countHeuristics();
+            if (Graph.heuristics == "manhattan")
+                h = manhattanHeuristics();
+            else if (Graph.heuristics == "diagonal")
+                h = diagonalHeuristics();
         g += parent.g + cost;
         f = h + g;}
     }
 
     public void countFunctions(int cost) {
-        h = countHeuristics();
+        if (Graph.heuristics == "manhattan")
+            h = manhattanHeuristics();
+        else if (Graph.heuristics == "diagonal")
+            h = diagonalHeuristics();
+
         if (parent == null)
             g = 0;
         else
@@ -37,7 +44,7 @@ public class Node {
         this.board = board;
     }
 
-    public int countHeuristics() {
+    public int manhattanHeuristics() {
         int result = 0;
         for (int i = 0; i < board[0].length; i++) {
             for (int j = 0; j < board[0].length; j++) {
@@ -55,6 +62,29 @@ public class Node {
                 }
             }
         }
+        return  result;
+    }
+
+    public int diagonalHeuristics() {
+        int result = 0;
+
+        for (int i = 0; i < board[0].length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                if (board[i][j] == 0) {}
+                else {
+                    if (board[i][j] != goal[i][j]) {
+                        for (int k = 0; k < goal[0].length; k++) {
+                            for (int l = 0; l < goal[0].length; l++) {
+                                if (board[i][j] == goal[k][l]) {
+                                    result += Math.max(Math.abs(i - k), Math.abs(j - l));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         return  result;
     }
 

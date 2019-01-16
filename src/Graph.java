@@ -3,6 +3,9 @@ import java.util.List;
 
 public class Graph {
 
+    private int counter = 0;
+    public static String heuristics = "diagonal";
+
     private Node startNode;
 
     private List<Node> openNodes = new ArrayList<>();
@@ -66,10 +69,11 @@ public class Graph {
 
         while (!openNodes.isEmpty()) {
             Node process = minOpenSuccessor();
+            counter++;
             System.out.println(process);
 
             if (Node.isGoal(process)) {
-                System.out.println("Gotowe!" + "\n" + process);
+                System.out.println("Gotowe! Zadanie rozwiązano w " + counter + " krokach!" + "\n" + process);
                 return;
             }
 
