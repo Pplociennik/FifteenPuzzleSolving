@@ -59,7 +59,7 @@ public class Node {
     }
 
     public static boolean isGoal(Node node) {
-        boolean result = (node.board == goal ? true : false);
+        boolean result = (node.board == goal || node.h == 0 ? true : false);
         return  result;
     }
 
