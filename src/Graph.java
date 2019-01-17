@@ -56,6 +56,9 @@ public class Graph {
 
     public void solveTheGame(int blankX, int blankY, int[][] startState) {
 
+        long startTime = System.currentTimeMillis();
+        long endTime = 0;
+
         startNode = new Node(null, 0, blankX, blankY);
         startNode.setBoard(startState);
         startNode.countFunctions(COST);
@@ -74,6 +77,8 @@ public class Graph {
 
             if (Node.isGoal(process)) {
                 System.out.println("Gotowe! Zadanie rozwiązano w " + counter + " krokach!" + "\n" + process);
+                endTime = System.currentTimeMillis() - startTime;
+                System.out.println("Czas wykonania: " + endTime + " ms");
                 return;
             }
 
