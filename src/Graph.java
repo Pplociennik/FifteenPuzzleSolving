@@ -3,7 +3,7 @@ import java.util.List;
 
 public class Graph {
 
-    private int counter = 0;
+    private int counter = -1;
     public static String heuristics = "diagonal";
 
     private Node startNode;
@@ -70,7 +70,7 @@ public class Graph {
         while (!openNodes.isEmpty()) {
             Node process = minOpenSuccessor();
             counter++;
-            System.out.println(process);
+            System.out.println(counter + ")  " + process);
 
             if (Node.isGoal(process)) {
                 System.out.println("Gotowe! Zadanie rozwiązano w " + counter + " krokach!" + "\n" + process);
