@@ -54,6 +54,25 @@ public class Graph {
         return successors;
     }
 
+    public List<Node> getRepeatLess(List<Node> list) {
+
+        int listSize = list.size();
+
+        for (int i = 0; i < listSize; i++) {
+            for (int j = 0; j < listSize; j++) {
+                if (i < list.size()) {
+                    if (i != j && list.get(i).g == list.get(j).g) {
+                        System.out.println("I: " + i + ", j: " + j);
+                        list.remove(j);
+                        listSize--;
+                    }
+                }
+            }
+        }
+
+        return list;
+    }
+
     public void solveTheGame(int blankX, int blankY, int[][] startState) {
 
         long startTime = System.currentTimeMillis();
@@ -73,11 +92,18 @@ public class Graph {
         while (!openNodes.isEmpty()) {
             Node process = minOpenSuccessor();
             counter++;
-            System.out.println(counter + ")  " + process);
+
 
             if (Node.isGoal(process)) {
-                System.out.println("Gotowe! Zadanie rozwiązano w " + counter + " krokach!" + "\n" + process);
                 endTime = System.currentTimeMillis() - startTime;
+
+                closedNodes = getRepeatLess(closedNodes);
+
+                for (Node node : closedNodes) {
+                    System.out.println(counter + ")  " + node);
+                }
+                System.out.println("Gotowe! Zadanie rozwiązano w " + counter + " krokach!" + "\n" + process);
+
                 System.out.println("Czas wykonania: " + endTime + " ms");
                 return;
             }
@@ -87,6 +113,7 @@ public class Graph {
             // openNodes.clear();
 
             for (Node nextNode : nextNodes(process)) {
+
                 if (closedNodes.contains(nextNode))
                     continue;
 
