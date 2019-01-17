@@ -7,7 +7,7 @@ public class FifteenPuzzleSolving {
     private int[][] grid = new int[3][3];
     private String heuristics = "manhattan";
 
-    private  int x, y;
+    private int x, y;
 
     public void startProgram() {
 
@@ -27,8 +27,8 @@ public class FifteenPuzzleSolving {
         int list[] = new int[9];
 
         for (int i = 0; i < 9; i++) {
-        list[i] = scanner.nextInt();
-}
+            list[i] = scanner.nextInt();
+        }
         findBlank(list);
 
 
@@ -42,8 +42,7 @@ public class FifteenPuzzleSolving {
                 if (numbers[counter] == 0) {
                     this.x = i;
                     this.y = j;
-                }
-                else {
+                } else {
                     this.grid[i][j] = numbers[counter];
                 }
             }

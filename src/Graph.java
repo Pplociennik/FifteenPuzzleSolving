@@ -24,10 +24,10 @@ public class Graph {
             }
         }
 
-        return  min;
+        return min;
     }
 
-    private  List<Node> nextNodes(Node last) {
+    private List<Node> nextNodes(Node last) {
         List<Node> successors = new ArrayList<>();
 
         if (last.hasUpMove()) {
@@ -41,7 +41,7 @@ public class Graph {
             successors.add(newSuccessor);
         }
         if (last.hasLeftMove()) {
-            Node newSuccessor = new Node(last, COST, last.blankX , last.blankY - 1);
+            Node newSuccessor = new Node(last, COST, last.blankX, last.blankY - 1);
             //newSuccessor.setSuccessorBoard();
             successors.add(newSuccessor);
         }
@@ -51,7 +51,7 @@ public class Graph {
             successors.add(newSuccessor);
         }
 
-        return  successors;
+        return successors;
     }
 
     public void solveTheGame(int blankX, int blankY, int[][] startState) {
@@ -86,7 +86,7 @@ public class Graph {
             closedNodes.add(process);
             // openNodes.clear();
 
-            for (Node nextNode: nextNodes(process)) {
+            for (Node nextNode : nextNodes(process)) {
                 if (closedNodes.contains(nextNode))
                     continue;
 

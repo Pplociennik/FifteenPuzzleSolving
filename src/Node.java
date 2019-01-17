@@ -16,14 +16,15 @@ public class Node {
         this.parent = parent;
         this.board = new int[3][3];
         this.setSuccessorBoard();
-        if (parent == null) {}
-        else{
+        if (parent == null) {
+        } else {
             if (Graph.heuristics == "manhattan")
                 h = manhattanHeuristics();
             else if (Graph.heuristics == "diagonal")
                 h = diagonalHeuristics();
-        g += parent.g + cost;
-        f = h + g;}
+            g += parent.g + cost;
+            f = h + g;
+        }
     }
 
     public void countFunctions(int cost) {
@@ -35,7 +36,7 @@ public class Node {
         if (parent == null)
             g = 0;
         else
-        g += parent.g + cost;
+            g += parent.g + cost;
 
         f = h + g;
     }
@@ -48,8 +49,8 @@ public class Node {
         int result = 0;
         for (int i = 0; i < board[0].length; i++) {
             for (int j = 0; j < board[0].length; j++) {
-                if (board[i][j] == 0) {}
-                else {
+                if (board[i][j] == 0) {
+                } else {
                     if (board[i][j] != goal[i][j]) {
                         for (int k = 0; k < goal[0].length; k++) {
                             for (int l = 0; l < goal[0].length; l++) {
@@ -62,7 +63,7 @@ public class Node {
                 }
             }
         }
-        return  result;
+        return result;
     }
 
     public int diagonalHeuristics() {
@@ -70,8 +71,8 @@ public class Node {
 
         for (int i = 0; i < board[0].length; i++) {
             for (int j = 0; j < board[0].length; j++) {
-                if (board[i][j] == 0) {}
-                else {
+                if (board[i][j] == 0) {
+                } else {
                     if (board[i][j] != goal[i][j]) {
                         for (int k = 0; k < goal[0].length; k++) {
                             for (int l = 0; l < goal[0].length; l++) {
@@ -85,61 +86,61 @@ public class Node {
             }
         }
 
-        return  result;
+        return result;
     }
 
     public static boolean isGoal(Node node) {
         boolean result = (node.board == goal || node.h == 0 ? true : false);
-        return  result;
+        return result;
     }
 
     public boolean hasUpMove() {
         boolean answer = (blankX - 1 >= 0 ? true : false);
-        return  answer;
+        return answer;
     }
 
-    public  boolean hasDownMove() {
+    public boolean hasDownMove() {
         boolean answer = (blankX + 1 < board[0].length ? true : false);
         return answer;
     }
 
-    public  boolean hasLeftMove() {
+    public boolean hasLeftMove() {
         boolean answer = (blankY - 1 >= 0 ? true : false);
         return answer;
     }
 
     public boolean hasRightMove() {
         boolean answer = (blankY + 1 < board[0].length ? true : false);
-        return  answer;
+        return answer;
     }
 
     public void setSuccessorBoard() {
-        if (parent == null) {}
-        else {
+        if (parent == null) {
+        } else {
 
             for (int i = 0; i < parent.board[0].length; i++) {
                 for (int j = 0; j < parent.board[0].length; j++) {
                     this.board[i][j] = parent.board[i][j];
                 }
             }
-                        this.board[parent.blankX][parent.blankY]  = this.board[blankX][blankY];
-                        this.board[blankX][blankY] = 0;
-            }
+            this.board[parent.blankX][parent.blankY] = this.board[blankX][blankY];
+            this.board[blankX][blankY] = 0;
         }
+    }
 
-        private  int getOneDimensionValuesArrayElement(int index) {
+    private int getOneDimensionValuesArrayElement(int index) {
         int result;
 
-            List<Integer> list = new ArrayList<>();
+        List<Integer> list = new ArrayList<>();
 
-            for (int i = 0; i < board[0].length; i++) {
-                for (int j = 0; j < board[0].length; j++) {
-                    list.add(board[i][j]);
-                }
+        for (int i = 0; i < board[0].length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                list.add(board[i][j]);
             }
-
-            return list.get(index);
         }
+
+        return list.get(index);
+    }
 
     private int countInversions() {
         int inv_count = 0;
@@ -155,8 +156,13 @@ public class Node {
 
     public boolean checkIfSolvable() {
         // firts condition: if width is odd then puzzle instance is solvable if number of inversions is even
-        if (this.board[0].length % 2 != 0) {if (this.countInversions() % 2 == 0) {return  true;}
-        else {return false;}}
+        if (this.board[0].length % 2 != 0) {
+            if (this.countInversions() % 2 == 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
         /* second condition: if width is even, puzzle instance is solvable if:
             - the blank is on an even row counting from the bottom (second-last, fourth-last, etc.) and number of inversions is odd.
             - the blank is on an odd row counting from the bottom (last, third-last, fifth-last, etc.) and number of inversions is even.
@@ -167,8 +173,9 @@ public class Node {
             } else if (((this.board[0].length - this.board[0].length) % 2 != 0) && (this.countInversions() % 2 == 0)) {
                 return true;
             }
+        } else {
+            return false;
         }
-        else {return false;}
         return false;
 
     }
@@ -177,7 +184,7 @@ public class Node {
     public String toString() {
         return "G: " + g + ", H: " + h + ", F: " + f + "\n"
                 + "| " + board[0][0] + " " + board[0][1] + " " + board[0][2] + " |\n"
-                + "| " + board[1][0] + " " + board[1][1]  + " " + board[1][2] + " |\n"
+                + "| " + board[1][0] + " " + board[1][1] + " " + board[1][2] + " |\n"
                 + "| " + board[2][0] + " " + board[2][1] + " " + board[2][2] + " |\n";
     }
 }
