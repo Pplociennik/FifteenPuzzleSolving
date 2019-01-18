@@ -62,9 +62,10 @@ public class Graph {
             for (int j = 0; j < listSize; j++) {
                 if (i < list.size()) {
                     if (i != j && list.get(i).g == list.get(j).g) {
-                        System.out.println("I: " + i + ", j: " + j);
+                       // System.out.println("I: " + i + ", j: " + j);
                         list.remove(j);
                         listSize--;
+                        // counter--;
                     }
                 }
             }
@@ -91,7 +92,8 @@ public class Graph {
 
         while (!openNodes.isEmpty()) {
             Node process = minOpenSuccessor();
-            counter++;
+            getRepeatLess(closedNodes);
+            // counter++;
 
 
             if (Node.isGoal(process)) {
@@ -100,7 +102,7 @@ public class Graph {
                 closedNodes = getRepeatLess(closedNodes);
 
                 for (Node node : closedNodes) {
-                    System.out.println(counter + ")  " + node);
+                    System.out.println(closedNodes.indexOf(node) + ")  " + node);
                 }
                 System.out.println("Gotowe! Zadanie rozwiązano w " + counter + " krokach!" + "\n" + process);
 
