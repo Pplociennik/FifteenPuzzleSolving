@@ -7,14 +7,24 @@ public class Node {
     public Node parent;
     public int g, h, f;
     public int[][] board;
+    public static int arrayLength;
 
-    public static int[][] goal = {{1, 2, 3}, {4, 5, 6}, {7, 8, 0}};
+    public static int[][] goal;
+    private int[][] goalEight = {{1, 2, 3}, {4, 5, 6}, {7, 8, 0}};
+    private int[][] goalFifteen = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 0}};
 
     public Node(Node parent, int cost, int blankX, int blankY) {
         this.blankX = blankX;
         this.blankY = blankY;
         this.parent = parent;
+
+        if (arrayLength == 9) {
         this.board = new int[3][3];
+        this.goal = this.goalEight;}
+        else if (arrayLength == 16) {
+            this.board = new  int[4][4];
+            this.goal = this.goalFifteen;
+        }
         this.setSuccessorBoard();
         if (parent == null) {
         } else {
@@ -182,9 +192,19 @@ public class Node {
 
     @Override
     public String toString() {
+        if (arrayLength == 9)
         return "G: " + g + ", H: " + h + ", F: " + f + "\n"
                 + "| " + board[0][0] + " " + board[0][1] + " " + board[0][2] + " |\n"
                 + "| " + board[1][0] + " " + board[1][1] + " " + board[1][2] + " |\n"
                 + "| " + board[2][0] + " " + board[2][1] + " " + board[2][2] + " |\n";
+        else if (arrayLength == 16)
+            return "G: " + g + ", H: " + h + ", F: " + f + "\n"
+                    + "| " + board[0][0] + " " + board[0][1] + " " + board[0][2] +  " " + board[0][3] + " |\n"
+                    + "| " + board[1][0] + " " + board[1][1] + " " + board[1][2] +  " " + board[1][3] + " |\n"
+                    + "| " + board[2][0] + " " + board[2][1] + " " + board[2][2] +  " " + board[2][3] + " |\n"
+                    + "| " + board[3][0] + " " + board[3][1] + " " + board[3][2] +  " " + board[3][3] + " |\n";
+        else
+            return null;
+
     }
 }

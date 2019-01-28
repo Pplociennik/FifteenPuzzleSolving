@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class FifteenPuzzleSolving {
 
-    private int[][] grid = new int[3][3];
+    private int[][] grid;
     private String heuristics = "manhattan";
 
     private int x, y;
@@ -19,14 +19,20 @@ public class FifteenPuzzleSolving {
 
     public void userInterface() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Witaj!\nWYBIERZ HEURYSTYKE {manhattan/diagonal]");
+        System.out.println("Witaj!\nWYBIERZ HEURYSTYKE [manhattan/diagonal]");
 
         heuristics = scanner.nextLine();
 
-        System.out.println("Wpisz kolejno liczby Twojej macierzy (0 - pusta kratka)");
-        int list[] = new int[9];
+        System.out.println("Wybierz rodzaj gry [8/15]");
 
-        for (int i = 0; i < 9; i++) {
+        Node.arrayLength = scanner.nextInt() + 1;
+
+        grid = new int[(int) Math.sqrt(Node.arrayLength)][(int) Math.sqrt(Node.arrayLength)];
+
+        System.out.println("Wpisz kolejno liczby Twojej macierzy (0 - pusta kratka)");
+        int list[] = new int[Node.arrayLength];
+
+        for (int i = 0; i < Node.arrayLength; i++) {
             list[i] = scanner.nextInt();
         }
         findBlank(list);
@@ -36,8 +42,8 @@ public class FifteenPuzzleSolving {
 
     public void findBlank(int[] numbers) {
         int counter = -1;
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < Math.sqrt(Node.arrayLength); i++) {
+            for (int j = 0; j < Math.sqrt(Node.arrayLength); j++) {
                 counter++;
                 if (numbers[counter] == 0) {
                     this.x = i;

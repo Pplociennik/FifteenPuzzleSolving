@@ -10,6 +10,7 @@ public class Graph {
 
     private List<Node> openNodes = new ArrayList<>();
     private List<Node> closedNodes = new ArrayList<>();
+    private List<Node> result = new ArrayList<>();
 
     public static final int COST = 1;
 
@@ -18,13 +19,22 @@ public class Graph {
         Integer minValue = Integer.MAX_VALUE;
 
         for (Node node : openNodes) {
-            if (node.f < minValue) {
+            if (node.f <= minValue) {
                 minValue = node.f;
                 min = node;
             }
         }
 
         return min;
+    }
+
+    private void makeResultList() {
+        Node current = closedNodes.get(closedNodes.size() - 1);
+
+        while(current.parent != null) {
+            result.add(current);
+            current = current.parent;
+        }
     }
 
     private List<Node> nextNodes(Node last) {
@@ -60,7 +70,7 @@ public class Graph {
 
         for (int i = 0; i < listSize; i++) {
             for (int j = 0; j < listSize; j++) {
-                if (i < list.size()) {
+                if (i < listSize) {
                     if (i != j && list.get(i).g == list.get(j).g) {
                        // System.out.println("I: " + i + ", j: " + j);
                         list.remove(j);
@@ -92,19 +102,23 @@ public class Graph {
 
         while (!openNodes.isEmpty()) {
             Node process = minOpenSuccessor();
-            getRepeatLess(closedNodes);
-            // counter++;
+            closedNodes = getRepeatLess(closedNodes);
+            counter++;
 
 
             if (Node.isGoal(process)) {
                 endTime = System.currentTimeMillis() - startTime;
+                closedNodes.add(process);
 
-                closedNodes = getRepeatLess(closedNodes);
+                //closedNodes = getRepeatLess(closedNodes);
+                makeResultList();
 
-                for (Node node : closedNodes) {
-                    System.out.println(closedNodes.indexOf(node) + ")  " + node);
+                for (Node node : result) {
+                    //System.out.println(closedNodes.indexOf(node) + ")  " + node);
+                    System.out.println(result.indexOf(node) + ") " + node);
                 }
-                System.out.println("Gotowe! Zadanie rozwiązano w " + counter + " krokach!" + "\n" + process);
+                System.out.println("Gotowe! Zadanie rozwiązano w " + counter + " krokach! (kroki algorytmu z powrotami)\n"
+                        + "Zadanie da się rozwiązać w " + closedNodes.size() + " krokach!" + "\n" + process);
 
                 System.out.println("Czas wykonania: " + endTime + " ms");
                 return;
@@ -123,7 +137,7 @@ public class Graph {
                     openNodes.add(nextNode);
 
                 else {
-                    System.out.println(process);
+                    //System.out.println(process);
                 }
             }
         }
