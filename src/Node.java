@@ -178,9 +178,9 @@ public class Node {
             - the blank is on an odd row counting from the bottom (last, third-last, fifth-last, etc.) and number of inversions is even.
          */
         else if (this.board[0].length % 2 == 0) {
-            if (((this.board[0].length - this.board[0].length) % 2 == 0) && (this.countInversions() % 2 != 0)) {
+            if (((this.board[0].length - (this.board[0].length - this.blankX)) % 2 == 0) && (this.countInversions() % 2 != 0)) {
                 return true;
-            } else if (((this.board[0].length - this.board[0].length) % 2 != 0) && (this.countInversions() % 2 == 0)) {
+            } else if (((this.board[0].length - (this.board[0].length - this.blankX)) % 2 != 0) && (this.countInversions() % 2 == 0)) {
                 return true;
             }
         } else {

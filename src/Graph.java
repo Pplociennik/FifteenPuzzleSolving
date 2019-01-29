@@ -102,7 +102,7 @@ public class Graph {
 
         while (!openNodes.isEmpty()) {
             Node process = minOpenSuccessor();
-            closedNodes = getRepeatLess(closedNodes);
+            //closedNodes = getRepeatLess(closedNodes);
             counter++;
 
 
@@ -118,7 +118,7 @@ public class Graph {
                     System.out.println(result.indexOf(node) + ") " + node);
                 }
                 System.out.println("Gotowe! Zadanie rozwiązano w " + counter + " krokach! (kroki algorytmu z powrotami)\n"
-                        + "Zadanie da się rozwiązać w " + closedNodes.size() + " krokach!" + "\n" + process);
+                        + "Zadanie da się rozwiązać w " + result.size() + " krokach!" + "\n" + process);
 
                 System.out.println("Czas wykonania: " + endTime + " ms");
                 return;
